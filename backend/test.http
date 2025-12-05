@@ -1,0 +1,42 @@
+### Counterfeit Detection API Tests
+### Use REST Client extension in VS Code to run these tests
+
+@baseUrl = http://localhost:8000
+
+### Health Check
+GET {{baseUrl}}/
+
+### Predict Endpoint (requires image file)
+# Note: This is a template. You'll need to provide an actual image file.
+POST {{baseUrl}}/api/predict
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+Nike Air Max 90 Running Shoes
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Authentic Nike Air Max 90 with original box and tags. Brand new condition.
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="seller_rating"
+
+4.5
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="num_reviews"
+
+1250
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="test.jpg"
+Content-Type: image/jpeg
+
+< ./dataset/real/image.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### Submit Feedback
+POST {{baseUrl}}/api/feedback
+Content-Type: application/x-www-form-urlencoded
+
+prediction_id=test123&was_correct=true&actual_label=real&comments=Great prediction!
+
